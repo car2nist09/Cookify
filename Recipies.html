@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>COOKIFY</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="logo"><a href="/"></a></li>
+                <li><a href="/Recipies.html">Recipes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section style="display:block; padding: 60px 40px;">
+        <h2 style="color:#333; font-size:28px; margin-bottom:8px;">🧊 What's in your fridge?</h2>
+        <p style="color:#888; font-size:15px; margin-bottom:24px;">Type your available ingredients and we'll find what you can cook right now.</p>
+        
+        <form method="POST" style="display:flex; gap:10px; align-items:center;">
+            <input type="text" name="ingredients" 
+                   placeholder="e.g. eggs, milk, leftover chicken"
+                   value="{{ user_input }}"
+                   style="padding:12px 16px; width:450px; font-size:16px; border-radius:8px; border:1.5px solid #ddd; outline:none;">
+            <button type="submit" 
+                    style="padding:12px 24px; background:#e67e22; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer; font-weight:500;">
+                Find Recipes →
+            </button>
+        </form>
+
+        {% if unknown %}
+        <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:12px 16px; margin-top:16px; color:#856404; font-size:13px; max-width:600px;">
+            ⚠ Didn't recognise: <strong>{{ unknown | join(', ') }}</strong> — check spelling and try again.
+        </div>
+        {% endif %}
+
+        {% if not recipes and user_input %}
+        <div style="background:#f8d7da; border:1px solid #f5c6cb; border-radius:8px; padding:12px 16px; margin-top:16px; color:#721c24; font-size:13px; max-width:600px;">
+            No recipes found with those ingredients. Try adding more common ingredients.
+        </div>
+        {% endif %}
+
+        {% if recipes %}
+        <h3 style="color:#333; margin-top:40px; margin-bottom:20px; font-size:18px;">
+            {{ recipes|length }} recipes you can make right now
+        </h3>
+        <div style="display:flex; flex-wrap:wrap; gap:16px;">
+        {% for recipe in recipes %}
+        <div style="background:white; border:1px solid #eee; border-radius:12px; padding:18px; color:#333; width:240px; flex-shrink:0; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+            <a href="https://www.food.com/search/{{ recipe.name | urlencode }}" 
+               target="_blank" style="text-decoration:none;">
+                <h4 style="margin:0 0 10px; color:#e67e22; font-size:14px; text-transform:capitalize; cursor:pointer;">
+                    {{ recipe.name }} ↗
+                </h4>
+            </a>
+            <div style="background:#f0faf0; border-radius:6px; padding:6px 10px; margin-bottom:10px; display:inline-block;">
+                <span style="color:#27ae60; font-size:13px; font-weight:500;">✓ {{ recipe.similarity }}% match</span>
+            </div>
+            <p style="margin:0; font-size:11px; color:#999; line-height:1.5;">{{ recipe.ingredients }}</p>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+</body>
+</html>

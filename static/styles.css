@@ -1,0 +1,68 @@
+css* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(58, 58, 58);
+    color: white;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+header {
+    background-image: url("/static/images/background.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #f5f0eb;
+    height: 100vh;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 30px;
+    background: rgba(245, 240, 235, 0.9);
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+li {
+    display: inline-block;
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+}
+
+header .logo a {
+    background-image: url("/static/images/Cookify logo.png");
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-indent: -9999px;
+    height: 40px;
+    width: 120px;
+}
+
+section {
+    background: white;
+    color: grey;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+footer {
+    color: pink;
+    background: black;
+    padding: 10px 20px;
+}

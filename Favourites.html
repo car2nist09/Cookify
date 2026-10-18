@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>COOKIFY - Favourites</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="logo"><a href="/"></a></li>
+                <li><a href="/Recipies.html">Recipes</a></li>
+                <li><a href="/favourites">Favourites</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section style="display:block; padding:60px 40px;">
+        <h2 style="color:#333; font-size:28px; margin-bottom:8px;">❤️ Your Favourites</h2>
+        <p style="color:#888; font-size:15px; margin-bottom:32px;">Recipes you've saved for later.</p>
+
+        {% if favourites %}
+        <div style="display:flex; flex-wrap:wrap; gap:16px;">
+        {% for recipe in favourites %}
+        <div style="background:white; border:1px solid #eee; border-radius:12px; padding:18px; color:#333; width:240px; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <a href="https://www.food.com/search/{{ recipe.name | urlencode }}" 
+               target="_blank" style="text-decoration:none;">
+                <h4 style="margin:0 0 10px; color:#e67e22; font-size:14px; text-transform:capitalize; cursor:pointer;">
+                    {{ recipe.name }} ↗
+                </h4>
+            </a>
+            <p style="margin:0 0 12px; font-size:11px; color:#999; line-height:1.5;">{{ recipe.ingredients }}</p>
+            <form method="POST" action="/favourite/remove">
+                <input type="hidden" name="name" value="{{ recipe.name }}">
+                <button type="submit" style="background:none; border:1px solid #ccc; color:#999; padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer;">🗑 Remove</button>
+            </form>
+        </div>
+        {% endfor %}
+        </div>
+
+        {% else %}
+        <div style="background:#f8f9fa; border-radius:12px; padding:60px 40px; text-align:center; color:#aaa; max-width:400px;">
+            <p style="font-size:48px; margin-bottom:16px;">🧊</p>
+            <p style="font-size:16px; margin-bottom:8px; color:#555;">No favourites yet.</p>
+            <p style="font-size:13px;">Search for recipes and hit ❤️ Save on the ones you like.</p>
+            <a href="/Recipies.html" style="display:inline-block; margin-top:20px; padding:10px 24px; background:#e67e22; color:white; border-radius:8px; text-decoration:none; font-size:14px;">Find Recipes →</a>
+        </div>
+        {% endif %}
+
+    </section>
+</body>
+</html>
